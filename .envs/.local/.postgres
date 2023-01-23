@@ -1,0 +1,11 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_ENGINE=postgres
+POSTGRES_HOST=127.0.0.1
+POSTGRES_PORT=5432
+POSTGRES_DB=justforfam
+POSTGRES_USER=DRlvJzioyYHCoWOImBcoqmCkZVxpFDBP
+POSTGRES_PASSWORD=N0GjUR04f58Kyg2gKbyrKGkujR51AMAiJ5aG40BReAxtrpZzVjfIPyP9uAmrM0cY
+
+# postgres://DRlvJzioyYHCoWOImBcoqmCkZVxpFDBP:N0GjUR04f58Kyg2gKbyrKGkujR51AMAiJ5aG40BReAxtrpZzVjfIPyP9uAmrM0cY@localhost:5432/justforfam
+JUSTFORFAMDB_SECRET={"host":"postgres","port":"5432","dbname":"justforfam","engine":"postgres","username":"DRlvJzioyYHCoWOImBcoqmCkZVxpFDBP","password":"N0GjUR04f58Kyg2gKbyrKGkujR51AMAiJ5aG40BReAxtrpZzVjfIPyP9uAmrM0cY"}
