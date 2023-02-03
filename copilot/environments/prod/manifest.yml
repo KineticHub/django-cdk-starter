@@ -11,11 +11,17 @@ type: Environment
 #   vpc:
 #     id:
 
-# Configure the load balancers in your environment, once created.
+# Distribute traffic to your service.
 http:
+  # Requests to this path will be forwarded to your service.
+  # To match all requests you can use the "/" path.
   public:
-    certificates: [arn:aws:acm:us-east-1:198877829033:certificate/7bc080cc-03f4-4342-bd01-25ae99d5fe0d]
-  hosted_zone: Z0169513SG763LVWXTGP
+    certificates: [ arn:aws:acm:us-east-1:198877829033:certificate/7bc080cc-03f4-4342-bd01-25ae99d5fe0d ]
+
+# Configure the load balancers in your environment, once created.
+#http:
+#  public:
+#    certificates: [arn:aws:acm:us-east-1:198877829033:certificate/7bc080cc-03f4-4342-bd01-25ae99d5fe0d]
 
 # Configure observability for your environment resources.
 observability:

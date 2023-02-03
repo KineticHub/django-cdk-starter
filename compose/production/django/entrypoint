@@ -54,4 +54,24 @@ END
 
 >&2 echo 'PostgreSQL is available'
 
+python << END
+from redis import Redis
+
+def write_out(msg, is_error):
+  import sys
+  if is_error:
+    sys.stderr.write(msg)
+  else:
+    sys.stdout.write(msg)
+
+redis_endpoint = "${REDIS_ENDPOINT}"
+redis_host, redis_port = redis_endpoint.split(":")
+r = Redis(redis_host, redis_port, socket_connect_timeout=1) # short timeout for the test
+try:
+  if(r.ping()):
+    write_out('Connected to redis {}:{}\n'.format(redis_host, redis_port), False)
+except Exception:
+  write_out('Error connecting to redis {}:{}\n'.format(redis_host, redis_port), True)
+END
+
 exec "$@"

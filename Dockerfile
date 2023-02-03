@@ -40,7 +40,6 @@ WORKDIR ${APP_HOME}
 RUN addgroup --system django \
     && adduser --system --ingroup django django
 
-
 # Install required system dependencies
 RUN apt-get update && apt-get install --no-install-recommends -y \
   # psycopg2 dependencies
@@ -59,11 +58,9 @@ COPY --from=python-build-stage /usr/src/app/wheels  /wheels/
 RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
   && rm -rf /wheels/
 
-
 COPY --chown=django:django ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
-
 
 COPY --chown=django:django ./compose/production/django/start /start
 RUN sed -i 's/\r$//g' /start
@@ -73,16 +70,13 @@ COPY --chown=django:django ./compose/production/django/celery/worker/start /star
 RUN sed -i 's/\r$//g' /start-celeryworker
 RUN chmod +x /start-celeryworker
 
-
 COPY --chown=django:django ./compose/production/django/celery/beat/start /start-celerybeat
 RUN sed -i 's/\r$//g' /start-celerybeat
 RUN chmod +x /start-celerybeat
 
-
 COPY ./compose/production/django/celery/flower/start /start-flower
 RUN sed -i 's/\r$//g' /start-flower
 RUN chmod +x /start-flower
-
 
 # copy application code to WORKDIR
 COPY --chown=django:django . ${APP_HOME}
@@ -92,4 +86,6 @@ RUN chown django:django ${APP_HOME}
 
 USER django
 
+# This is moved to the manifest file for copilot
 #ENTRYPOINT ["/entrypoint"]
+#CMD ["/start"]

@@ -3,15 +3,15 @@
 #  https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/
 
 # Your service name will be used in naming your resources like log groups, ECS services, etc.
-name: justforfam-web
+name: django
 type: Load Balanced Web Service
 
-# Distribute traffic to your service.
+# Configure the load balancers in your environment, once created.
 http:
-  # Requests to this path will be forwarded to your service.
-  # To match all requests you can use the "/" path.
-  path: '/'
-  # You can specify a custom health check path. The default is "/".
+  path: "/"
+#  # Target container for Load Balancer is our sidecar 'nginx', instead of the service container.
+#  target_container: 'traefik'
+#  # You can specify a custom health check path. The default is "/".
   healthcheck:
     path: '/'
     port: 5000
@@ -29,15 +29,25 @@ image:
   # Port exposed through your container to route traffic to it.
   port: 5000
 
-command: ['/start']
+command: ["/start"]
 entrypoint: ['/entrypoint']
 
 cpu: 256       # Number of CPU units for the task.
 memory: 512    # Amount of memory in MiB used by the task.
 count: 1      # Number of tasks that should be running in your service.
 exec: true     # Enable running commands in your container.
+
 network:
   connect: true # Enable Service Connect for intra-environment traffic between services.
+
+sidecars:
+#  traefik:
+#    image:
+#      build: compose/production/traefik/Dockerfile
+#      port: 443
+  redis:
+    image: docker.io/redis:alpine
+    port: 6379
 
 # storage:
   # readonly_fs: true       # Limit to read-only access to mounted root filesystems.
