@@ -1,0 +1,13 @@
+{% extends "house/base.html" %}
+{% load compress %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+    <h2>Houses</h2>
+    <ul>
+        {% for house in houses_list %}
+            <li>{{ house.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -65,7 +65,7 @@ def write_out(msg, is_error):
     sys.stdout.write(msg)
 
 redis_endpoint = "${REDIS_ENDPOINT}"
-redis_host, redis_port = redis_endpoint.split(":")
+redis_host, redis_port = redis_endpoint.rsplit(":", 1)
 r = Redis(redis_host, redis_port, socket_connect_timeout=1) # short timeout for the test
 try:
   if(r.ping()):

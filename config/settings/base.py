@@ -79,7 +79,7 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "django.contrib.humanize", # Handy template tags
+    "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
     "django.forms",
 ]
@@ -95,10 +95,13 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
+    "tinymce",
+    "rules.apps.AutodiscoverRulesConfig",
 ]
 
 LOCAL_APPS = [
     "justforfam.users",
+    "justforfam.house",
     "justforfam.posts"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -115,6 +118,7 @@ MIGRATION_MODULES = {"sites": "justforfam.contrib.sites.migrations"}
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
+    'rules.permissions.ObjectPermissionBackend',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
@@ -180,6 +184,9 @@ STATICFILES_FINDERS = [
 MEDIA_ROOT = str(APPS_DIR / "media")
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
+# Used in ImageFileCheck
+MAX_IMAGE_FILE_SIZE = '10MB'
+ALLOWED_IMAGE_TYPES = ['image/jpg', 'image/jpeg', 'image/png']
 
 # TEMPLATES
 # ------------------------------------------------------------------------------

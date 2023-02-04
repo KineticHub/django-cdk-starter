@@ -1,76 +1,68 @@
 from django.db import models
+from django.db.models import SET_NULL, CASCADE
+from tinymce import models as tinymce_models
 
 from justforfam.core.models.base import AbstractBaseModel
+from justforfam.core.utils.files.FileUploadTo import FileUploadTo
+from justforfam.core.utils.files.ImageFileCheck import ContentTypeRestrictedFileField
+from justforfam.house.models import Room
+from justforfam.posts import rules
 from justforfam.users.models import User
 
 
-# from django.db.models import CharField
-# from django.urls import reverse
-# from django.utils.translation import gettext_lazy as _
-#
-#
 class PostBase(AbstractBaseModel):
     """
     Base model for all Post models
     """
 
-    # ======================================
-    # Choices
-    # ======================================
-    class PostType(models.TextChoices):
+    class PostTypeOptions(models.TextChoices):
         TEXT = "text", "Text"
         RECIPE = "recipe", "Recipe"
-
-    class PostLocation(models.TextChoices):
-        BEDROOM = "bedroom", "Bedroom"
-        KITCHEN = "kitchen", "Kitchen"
 
     # ======================================
     # Fields
     # ======================================
-    user = models.ForeignKey(
-        User, related_name="posts", on_delete=models.CASCADE
+    author = models.ForeignKey(
+        User,
+        on_delete=CASCADE,
+        default=0
+    )
+    title = models.CharField(
+        max_length=255,
+        default="Untitled"
+    )
+    banner_image = ContentTypeRestrictedFileField(
+        upload_to=FileUploadTo("posts/banners/"),
+        null=True,
+        blank=True
+    )
+    room = models.ForeignKey(
+        Room,
+        related_name='posts',
+        on_delete=SET_NULL,
+        null=True
     )
     type = models.CharField(
         max_length=255,
-        choices=PostType.choices,
-        default=PostType.TEXT,
-        null=True,
-        blank=True,
-    )
-    location = models.CharField(
-        max_length=255,
-        choices=PostLocation.choices,
-        default=PostLocation.BEDROOM,
-        null=True,
-        blank=True,
+        choices=PostTypeOptions.choices,
+        default=PostTypeOptions.TEXT
     )
 
     class Meta:
         abstract = True
+        rules_permissions = {
+            "add": rules.can_add_post,
+            "change": rules.can_edit_post,
+            "delete": rules.can_delete_post,
+            "view": rules.can_view_post,
+        }
+
+    def __str__(self):
+        return self.title
 
 
 class TextPost(PostBase):
     """
     Simple text based post
     """
-    # cover_image = models.FileField(
-    #     upload_to=ModelUploadTo("posts/cover/"), null=True, blank=True
-    # )
-    content = models.TextField(
-        blank=True, null=True
-    )
-#
-#     #: First and last name do not cover name patterns around the globe
-#     name = CharField(_("Name of User"), blank=True, max_length=255)
-#     first_name = None  # type: ignore
-#     last_name = None  # type: ignore
-#
-#     def get_absolute_url(self):
-#         """Get url for user's detail view.
-#
-#         Returns:
-#             str: URL for user detail.
-#
-#         """
-#         return reverse("users:detail", kwargs={"username": self.username})
+    content = tinymce_models.HTMLField()

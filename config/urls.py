@@ -18,7 +18,12 @@ urlpatterns = [
     # User management
     path("users/", include("justforfam.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
-    # Your stuff: custom urls includes go here
+    # TinyMVE
+    path('tinymce/', include('tinymce.urls')),
+
+    # Blog posts
+    path('<username>/', include('justforfam.house.urls')),
+    path('<username>/home/<house_name>/<room_name>/', include('justforfam.posts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     # Static file serving when using Gunicorn + Uvicorn for local web socket development

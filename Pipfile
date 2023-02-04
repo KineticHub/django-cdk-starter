@@ -51,8 +51,10 @@ django-debug-toolbar = "==3.7.0"
 django-extensions = "==3.2.1"
 django-coverage-plugin = "==2.0.4"
 pytest-django = "==4.5.2"
+django-tinymce = "==3.5.0"
+rules = "==3.3"
 
 [dev-packages]
 
 [requires]
-python_version = "3.8"
+python_version = "3.9.9"
