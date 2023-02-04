@@ -7,7 +7,7 @@
     <h2>Houses</h2>
     <ul>
         {% for house in houses_list %}
-            <li>{{ house.name }}</li>
+            <li><a href="{% url 'house:rooms_list' user.username house.name %}">{{ house.name }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -1,5 +1,29 @@
-from django.shortcuts import render
+from urllib.parse import unquote
+
+from django.shortcuts import render, get_object_or_404
 from django.views import View
+from django.views.generic import ListView, DetailView
+
+from justforfam.core.utils.permissions import ExtendedAutoPermissionRequiredMixin
+from justforfam.house.models import House, Room
+from justforfam.posts.models import Post
+
+
+class PostsListView(ExtendedAutoPermissionRequiredMixin, ListView):
+    model = Post
+    template_name = 'posts/posts_list.html'
+    context_object_name = 'posts_list'
+
+    def get_queryset(self):
+        house = get_object_or_404(House, name=unquote(self.kwargs['house_name']), family__in=[self.request.user])
+        room = get_object_or_404(Room, name=unquote(self.kwargs['room_name']), house=house)
+        return Post.objects.filter(room=room)
+
+
+class PostView(ExtendedAutoPermissionRequiredMixin, DetailView):
+    model = Post
+    template_name = 'posts/post_viewer.html'
+    context_object_name = 'post'
 
 
 # def get_name(request):

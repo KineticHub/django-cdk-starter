@@ -1,0 +1,39 @@
+{% load static %}
+
+<div id="wrapper">
+  <div id="main">
+    <!-- Post -->
+    <article class="post">
+      <header>
+        <div class="title">
+          <h2><a href="single.html">{{ post.title }}</a></h2>
+          <p>{{ post.subtitle }}</p>
+        </div>
+        <div class="meta">
+          <time class="published" datetime="{{ post.created | date:'Y-m-d' }}">{{ post.created | date:'F D jS, Y' }}</time>
+          <a href="#" class="author"><span class="name">Author: {{ post.author.username }}</span><img src="{% static 'images/pic01.jpg' %}" alt=""/></a>
+        </div>
+      </header>
+      <a href="{% url 'posts:post_view' user.username post.room.house.name post.room.name post.title post.pk|stringformat:"s" %}" class="image"><img src="{{ post.banner_image.url }}" width="1100" height="300" alt=""/></a>
+      <p>
+        {% if list_page %}
+          {{ post.content| truncatewords_html:150 | safe }}
+        {% else %}
+          {{ post.content | safe }}
+        {% endif %}
+      </p>
+      <footer>
+        {% if list_page %}
+        <ul class="actions">
+          <li><a href="{% url 'posts:post_view' user.username post.room.house.name post.room.name post.title post.pk|stringformat:"s" %}" class="button large">Continue Reading</a></li>
+        </ul>
+        {% endif %}
+        <ul class="stats">
+          <li><a href="#">General</a></li>
+          <li><a href="#" class="icon solid fa-heart">28</a></li>
+          <li><a href="#" class="icon solid fa-comment">128</a></li>
+        </ul>
+      </footer>
+    </article>
+  </div>
+</div>

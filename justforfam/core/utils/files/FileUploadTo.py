@@ -20,4 +20,4 @@ class FileUploadTo:
     def __call__(self, instance: models.Model, filename: str) -> str:
         _, filename_ext = os.path.splitext(filename)
         filename = "{}{}".format(str(uuid4()), filename_ext)
-        return os.path.join(self._base_path, filename)
+        return os.path.join(self._file_path, filename)

@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from justforfam.posts.models import TextPost
+from justforfam.posts.models import Post
 
 
-@admin.register(TextPost)
+@admin.register(Post)
 class TextPostAdmin(admin.ModelAdmin):
     list_display = ["title", "type"]
     search_fields = ["title"]

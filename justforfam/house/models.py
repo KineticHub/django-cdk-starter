@@ -58,6 +58,10 @@ class Room(AbstractBaseModel):
         null=False,
         blank=False
     )
+    description = models.TextField(
+        null=True,
+        blank=True
+    )
 
     class Meta:
         rules_permissions = {

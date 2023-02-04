@@ -10,7 +10,7 @@ from justforfam.posts import rules
 from justforfam.users.models import User
 
 
-class PostBase(AbstractBaseModel):
+class Post(AbstractBaseModel):
     """
     Base model for all Post models
     """
@@ -31,6 +31,11 @@ class PostBase(AbstractBaseModel):
         max_length=255,
         default="Untitled"
     )
+    subtitle = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True
+    )
     banner_image = ContentTypeRestrictedFileField(
         upload_to=FileUploadTo("posts/banners/"),
         null=True,
@@ -47,9 +52,9 @@ class PostBase(AbstractBaseModel):
         choices=PostTypeOptions.choices,
         default=PostTypeOptions.TEXT
     )
+    content = tinymce_models.HTMLField()
 
     class Meta:
-        abstract = True
         rules_permissions = {
             "add": rules.can_add_post,
             "change": rules.can_edit_post,
@@ -59,10 +64,3 @@ class PostBase(AbstractBaseModel):
 
     def __str__(self):
         return self.title
-
-
-class TextPost(PostBase):
-    """
-    Simple text based post
-    """
-    content = tinymce_models.HTMLField()

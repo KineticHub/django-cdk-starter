@@ -23,7 +23,7 @@ urlpatterns = [
 
     # Blog posts
     path('<username>/', include('justforfam.house.urls')),
-    path('<username>/home/<house_name>/<room_name>/', include('justforfam.posts.urls')),
+    path('<username>/home/<house_name>/room/<room_name>/', include('justforfam.posts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     # Static file serving when using Gunicorn + Uvicorn for local web socket development
