@@ -14,7 +14,7 @@
   <h1>{{ request.resolver_match.kwargs.room_name }}</h1>
 
   {% for post in posts_list %}
-      {% include "posts/post_text_card.html" with post=post list_page=True %}
+      {% include "posts/partials/post_text_card.html" with post=post list_page=True %}
   {% endfor %}
 
   <!-- Wrapper -->

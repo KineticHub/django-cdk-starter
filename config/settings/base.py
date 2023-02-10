@@ -83,6 +83,7 @@ DJANGO_APPS = [
     "django.contrib.admin",
     "django.forms",
 ]
+
 THIRD_PARTY_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
@@ -97,12 +98,15 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
     "tinymce",
     "rules.apps.AutodiscoverRulesConfig",
+    "photologue",
+    "sortedm2m",
 ]
 
 LOCAL_APPS = [
     "justforfam.users",
     "justforfam.house",
-    "justforfam.posts"
+    "justforfam.posts",
+    "justforfam.gallery",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

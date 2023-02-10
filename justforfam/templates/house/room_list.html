@@ -9,10 +9,10 @@
     <ul>
         {% for room in rooms_list %}
           <article class="style{% cycle '1' '2' '3' '4' '5' '6' %}">
+          <a href="{% url 'posts:posts_list' user.username room.house.name room.name %}">
             <span class="image">
-              <img src="{% static 'images/pic04.jpg' %}" alt="" />
+              <img src="{{ room.cover_image.url }}" width="500" height="200" alt="" />
             </span>
-            <a href="{% url 'posts:posts_list' user.username room.house.name room.name %}">
               <h2>{{ room.name }}</h2>
               <div class="content">
                 <p>{{ room.description }}</p>

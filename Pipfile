@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 pytz = "==2022.6"
 python-slugify = "==6.1.2"
-pillow = "==9.3.0"
+pillow = "==9.4.0"
 rcssmin = "==1.1.0"
 argon2-cffi = "==21.3.0"
 whitenoise = "==6.2.0"
@@ -53,6 +53,7 @@ django-coverage-plugin = "==2.0.4"
 pytest-django = "==4.5.2"
 django-tinymce = "==3.5.0"
 rules = "==3.3"
+django-photologue = "==3.15.1"
 
 [dev-packages]
 

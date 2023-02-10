@@ -5,64 +5,61 @@
 
 {% block css %}
   {{ block.super }}
-  <link href="{% static 'css/phantom/phantom.css' %}" rel="stylesheet">
-  <link href="{% static 'css/phantom/noscript.css' %}" rel="stylesheet">
-  <link href="{% static 'css/shared/fontawesome-all.min.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-  <body class="is-preload">
-		<!-- Wrapper -->
-			<div id="wrapper">
-
-				<!-- Header -->
-					<header id="header">
-						<div class="inner">
-
-							<!-- Logo -->
-								<a href="index.html" class="logo">
-									<span class="symbol"><img src="{% static 'images/logo.jpeg' %}" alt=""/>
-                  </span><span class="title">Just For Fam</span>
-								</a>
-
-							<!-- Nav -->
-								<nav>
-									<ul>
-										<li><a href="#menu">Menu</a></li>
-									</ul>
-								</nav>
-
-						</div>
-					</header>
-
-				<!-- Menu -->
-					<nav id="menu">
-						<h2>Menu</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="generic.html">Ipsum veroeros</a></li>
-							<li><a href="generic.html">Tempus etiam</a></li>
-							<li><a href="generic.html">Consequat dolor</a></li>
-							<li><a href="elements.html">Elements</a></li>
-						</ul>
-					</nav>
-
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
-							<header>
-								<h1>Welcome to the family blog!</h1>
-								<p>
-                  Welcome, dear family members!
-                  <br><br>
-                  We are so glad you have found your way to our family blog. This is a place where we can share all sorts of fun, engaging, and family-friendly content that we can enjoy together.
-                  <br><br>
-                  On our blog, you will find a wide variety of things to keep you entertained and informed. We have recipes for tasty meals, craft ideas to keep your creative juices flowing, parenting tips for those moments when you need a little guidance, and educational activities to keep your minds sharp. Plus, all of our writers are real parents who know firsthand the ups and downs of raising a family.
-                  <br><br>
-                  Stay connected with us to stay up-to-date on the latest family trends, find new ways to bond with your loved ones, and get inspiration for creating lasting memories together. We can't wait to share this journey with you!
-                </p>
-							</header>
-							<section class="tiles">
+{#  <body class="is-preload">#}
+{#		<!-- Wrapper -->#}
+{#			<div id="wrapper">#}
+{##}
+{#				<!-- Header -->#}
+{#					<header id="header">#}
+{#						<div class="inner">#}
+{##}
+{#							<!-- Logo -->#}
+{#								<a href="index.html" class="logo">#}
+{#									<span class="symbol"><img src="{% static 'images/logo.jpeg' %}" alt=""/>#}
+{#                  </span><span class="title">Just For Fam</span>#}
+{#								</a>#}
+{##}
+{#							<!-- Nav -->#}
+{#								<nav>#}
+{#									<ul>#}
+{#										<li><a href="#menu">Menu</a></li>#}
+{#									</ul>#}
+{#								</nav>#}
+{##}
+{#						</div>#}
+{#					</header>#}
+{##}
+{#				<!-- Menu -->#}
+{#					<nav id="menu">#}
+{#						<h2>Menu</h2>#}
+{#						<ul>#}
+{#							<li><a href="index.html">Home</a></li>#}
+{#							<li><a href="generic.html">Ipsum veroeros</a></li>#}
+{#							<li><a href="generic.html">Tempus etiam</a></li>#}
+{#							<li><a href="generic.html">Consequat dolor</a></li>#}
+{#							<li><a href="elements.html">Elements</a></li>#}
+{#						</ul>#}
+{#					</nav>#}
+{##}
+{#				<!-- Main -->#}
+{#					<div id="main">#}
+{#						<div class="inner">#}
+{#							<header>#}
+{#								<h1>Welcome to the family blog!</h1>#}
+{#								<p>#}
+{#                  Welcome, dear family members!#}
+{#                  <br><br>#}
+{#                  We are so glad you have found your way to our family blog. This is a place where we can share all sorts of fun, engaging, and family-friendly content that we can enjoy together.#}
+{#                  <br><br>#}
+{#                  On our blog, you will find a wide variety of things to keep you entertained and informed. We have recipes for tasty meals, craft ideas to keep your creative juices flowing, parenting tips for those moments when you need a little guidance, and educational activities to keep your minds sharp. Plus, all of our writers are real parents who know firsthand the ups and downs of raising a family.#}
+{#                  <br><br>#}
+{#                  Stay connected with us to stay up-to-date on the latest family trends, find new ways to bond with your loved ones, and get inspiration for creating lasting memories together. We can't wait to share this journey with you!#}
+{#                </p>#}
+{#							</header>#}
+{#							<section class="tiles">#}
 {#								<article class="style1">#}
 {#									<span class="image">#}
 {#										<img src="{% static 'images/pic01.jpg' %}" alt="" />#}
@@ -96,17 +93,17 @@
 {#										</div>#}
 {#									</a>#}
 {#								</article>#}
-								<article class="style4">
-									<span class="image">
-										<img src="{% static 'images/pic04.jpg' %}" alt="" />
-									</span>
-									<a href="generic.html">
-										<h2>Living Room</h2>
-										<div class="content">
-											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
-										</div>
-									</a>
-								</article>
+{#								<article class="style4">#}
+{#									<span class="image">#}
+{#										<img src="{% static 'images/pic04.jpg' %}" alt="" />#}
+{#									</span>#}
+{#									<a href="generic.html">#}
+{#										<h2>Living Room</h2>#}
+{#										<div class="content">#}
+{#											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>#}
+{#										</div>#}
+{#									</a>#}
+{#								</article>#}
 {#								<article class="style5">#}
 {#									<span class="image">#}
 {#										<img src="{% static 'images/pic05.jpg' %}" alt="" />#}
@@ -129,54 +126,54 @@
 {#										</div>#}
 {#									</a>#}
 {#								</article>#}
-							</section>
-						</div>
-					</div>
-
-				<!-- Footer -->
-					<footer id="footer">
-						<div class="inner">
-							<section>
-								<h2>Get in touch</h2>
-								<form method="post" action="#">
-									<div class="fields">
-										<div class="field half">
-											<input type="text" name="name" id="name" placeholder="Name" />
-										</div>
-										<div class="field half">
-											<input type="email" name="email" id="email" placeholder="Email" />
-										</div>
-										<div class="field">
-											<textarea name="message" id="message" placeholder="Message"></textarea>
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Send" class="primary" /></li>
-									</ul>
-								</form>
-							</section>
-							<section>
-								<h2>Follow</h2>
-								<ul class="icons">
-									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
-								</ul>
-							</section>
-							<ul class="copyright">
-								<li>&copy; JustForFam. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-							</ul>
-						</div>
-					</footer>
-
-			</div>
-
-		<!-- Scripts -->
-			<script type="text/javascript" src="{% static 'js/phantom/jquery.min.js' %}"></script>
-			<script type="text/javascript" src="{% static 'js/phantom/browser.min.js' %}"></script>
-			<script type="text/javascript" src="{% static 'js/phantom/breakpoints.min.js' %}"></script>
-			<script type="text/javascript" src="{% static 'js/phantom/util.js' %}"></script>
-			<script type="text/javascript" src="{% static 'js/phantom/main.js' %}"></script>
-
-	</body>
+{#							</section>#}
+{#						</div>#}
+{#					</div>#}
+{##}
+{#				<!-- Footer -->#}
+{#					<footer id="footer">#}
+{#						<div class="inner">#}
+{#							<section>#}
+{#								<h2>Get in touch</h2>#}
+{#								<form method="post" action="#">#}
+{#									<div class="fields">#}
+{#										<div class="field half">#}
+{#											<input type="text" name="name" id="name" placeholder="Name" />#}
+{#										</div>#}
+{#										<div class="field half">#}
+{#											<input type="email" name="email" id="email" placeholder="Email" />#}
+{#										</div>#}
+{#										<div class="field">#}
+{#											<textarea name="message" id="message" placeholder="Message"></textarea>#}
+{#										</div>#}
+{#									</div>#}
+{#									<ul class="actions">#}
+{#										<li><input type="submit" value="Send" class="primary" /></li>#}
+{#									</ul>#}
+{#								</form>#}
+{#							</section>#}
+{#							<section>#}
+{#								<h2>Follow</h2>#}
+{#								<ul class="icons">#}
+{#									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>#}
+{#									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>#}
+{#									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>#}
+{#								</ul>#}
+{#							</section>#}
+{#							<ul class="copyright">#}
+{#								<li>&copy; JustForFam. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>#}
+{#							</ul>#}
+{#						</div>#}
+{#					</footer>#}
+{##}
+{#			</div>#}
+{##}
+{#		<!-- Scripts -->#}
+{#			<script type="text/javascript" src="{% static 'js/phantom/jquery.min.js' %}"></script>#}
+{#			<script type="text/javascript" src="{% static 'js/phantom/browser.min.js' %}"></script>#}
+{#			<script type="text/javascript" src="{% static 'js/phantom/breakpoints.min.js' %}"></script>#}
+{#			<script type="text/javascript" src="{% static 'js/phantom/util.js' %}"></script>#}
+{#			<script type="text/javascript" src="{% static 'js/phantom/main.js' %}"></script>#}
+{##}
+{#	</body>#}
 {% endblock %}
