@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "20747c1dce7cf7dbd7457c32f36123b0b2c1c710217eaab2d7f35d3992991810"
+            "sha256": "6723f613894cf48155034b3c799b750e3443e7f6d72d74720e4bf08c9ba1bd0b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -371,7 +371,7 @@
                 "sha256:a0713dc7a1de3f06bc0df5a9567ad19ead2d3d5689b434768a6145bff77c0667",
                 "sha256:f184f0d851d96b6d29297354ed981b7dd71df7ff500d82fa6d11f0856bee8035"
             ],
-            "markers": "python_version < '4.0' and python_full_version >= '3.6.2'",
+            "markers": "python_version < '4' and python_full_version >= '3.6.2'",
             "version": "==0.3.0"
         },
         "click-plugins": {
@@ -588,6 +588,14 @@
             "index": "pypi",
             "version": "==2.4.0"
         },
+        "django-comments-xtd": {
+            "hashes": [
+                "sha256:560cfe7c14dcb4d1fecb5ad68c90e684ad0046454a6f276e000316043a3eb284",
+                "sha256:c40720d708ca0a08639f3182b97b6ef0d9b32a2b035677c21a96d5c84bc226c1"
+            ],
+            "index": "pypi",
+            "version": "==2.9.9"
+        },
         "django-compressor": {
             "hashes": [
                 "sha256:61f313852b4c8d4ef2534cda3d2366f45ca3e399b3cbe10590e516cc6b45542d",
@@ -595,6 +603,13 @@
             ],
             "index": "pypi",
             "version": "==4.1"
+        },
+        "django-contrib-comments": {
+            "hashes": [
+                "sha256:2ca79060bbc8fc5b636981ef6e50f35ab83649af75fc1be47bf770636be3271c",
+                "sha256:48de00f15677e016a216aeff205d6e00e4391c9a5702136c64119c472b7356da"
+            ],
+            "version": "==2.2.0"
         },
         "django-cors-headers": {
             "hashes": [
@@ -704,7 +719,7 @@
                 "sha256:15746ed367a5a32eda76cfa2886eeec1de8cda79f519b7c5e12f87ed7cdbd663",
                 "sha256:199f211082eeac7e83563929b8ce41399c1c0f00dfc2f36bc00bea381027eaaa"
             ],
-            "markers": "python_version >= '3.7' and python_version < '4.0'",
+            "markers": "python_version >= '3.7' and python_version < '4'",
             "version": "==5.0"
         },
         "django-tinymce": {
@@ -1672,7 +1687,7 @@
                 "sha256:64299f4909223da747622c030b781c0d7811e359c37124b4bd368fb8c6518baa",
                 "sha256:98b1b2782e3c6c4904938b84c0eb932721069dfdb9134313beff7c83c2df24bf"
             ],
-            "markers": "python_version >= '3.7' and python_version < '4.0'",
+            "markers": "python_version >= '3.7' and python_version < '4'",
             "version": "==2.28.2"
         },
         "requests-oauthlib": {
@@ -1854,7 +1869,7 @@
                 "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc",
                 "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"
             ],
-            "markers": "python_version < '3.11'",
+            "markers": "python_version >= '3.7'",
             "version": "==2.0.1"
         },
         "tomlkit": {

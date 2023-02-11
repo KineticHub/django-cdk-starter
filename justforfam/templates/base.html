@@ -49,6 +49,9 @@
 
     {% endblock javascript %}
 
+    <!-- Required for TinyMCE: https://django-tinymce.readthedocs.io/en/latest/usage.html#templates -->
+    {{ form.media }}
+
 	</head>
 	<body class="is-preload">
 

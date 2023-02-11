@@ -17,6 +17,6 @@
   <h2>{% translate "Add a Home" %}</h2>
   <button class="primaryAction btn btn-primary" type="button">{% translate "Join an Existing Home" %}</button>
   <b>~ OR ~</b>
-  <button class="primaryAction btn btn-primary" type="button">{% translate "Create a New Home" %}</button>
+  <a href="{% url 'house:houses_create' user.username %}" class="button large">{% translate 'Create a New Home' %}</a>
 
 {% endblock %}

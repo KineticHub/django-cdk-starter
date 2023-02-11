@@ -28,10 +28,16 @@ urlpatterns = [
     # Photo Gallery
     path('gallery/', include('justforfam.gallery.urls', namespace='gallery')),
 
-    # Photologue (3rd Party)
+    ############
+    # 3rd Party
+    ############
+
+    # Photologue
     path('photologue/', include('photologue.urls', namespace='photologue')),
-    # Avatar (3rd Party)
+    # Avatar
     path('avatar/', include('avatar.urls')),
+    # Comments
+    path('comments/', include('django_comments_xtd.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:

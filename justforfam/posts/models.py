@@ -17,7 +17,7 @@ class Post(AbstractBaseModel):
 
     class PostTypeOptions(models.TextChoices):
         TEXT = "text", "Text"
-        RECIPE = "recipe", "Recipe"
+        # RECIPE = "recipe", "Recipe"
 
     # ======================================
     # Fields
@@ -64,3 +64,13 @@ class Post(AbstractBaseModel):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('posts:post_view',
+                       kwargs={'username': self.author.username,
+                               'house_name': self.room.house.name,
+                               'room_name': self.room.name,
+                               'post_title': self.title,
+                               'pk': str(self.pk)
+                               })

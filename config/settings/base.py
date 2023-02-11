@@ -2,6 +2,7 @@
 Base settings to build other settings files upon.
 """
 import json
+import uuid
 from pathlib import Path
 
 import environ
@@ -100,7 +101,9 @@ THIRD_PARTY_APPS = [
     "rules.apps.AutodiscoverRulesConfig",
     "photologue",
     "sortedm2m",
-    "avatar"
+    "avatar",
+    "django_comments_xtd",
+    "django_comments"
 ]
 
 LOCAL_APPS = [
@@ -230,6 +233,17 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 # GRAVATAR
 AVATAR_GRAVATAR_DEFAULT = 'monsterid'
+
+# COMMENTS
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 2
+COMMENTS_XTD_CONFIRM_EMAIL = True
+#  To help obfuscating comments before they are sent for confirmation.
+COMMENTS_XTD_SALT = uuid.uuid4().bytes
+# Source mail address used for notifications.
+# COMMENTS_XTD_FROM_EMAIL = ""
+# Contact mail address to show in messages.
+# COMMENTS_XTD_CONTACT_EMAIL = ""
 
 # FIXTURES
 # ------------------------------------------------------------------------------

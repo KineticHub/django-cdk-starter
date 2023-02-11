@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 {% load avatar_tags %}
 
@@ -30,7 +31,7 @@
       <footer>
         {% if list_page %}
         <ul class="actions">
-          <li><a href="{{ post_link }}" class="button large">Continue Reading</a></li>
+          <li><a href="{{ post_link }}" class="button large">{% translate 'Continue Reading' %}</a></li>
         </ul>
         {% endif %}
         <ul class="stats">

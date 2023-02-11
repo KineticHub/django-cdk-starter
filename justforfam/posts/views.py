@@ -1,11 +1,13 @@
 from urllib.parse import unquote
 
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 from justforfam.core.utils.permissions import ExtendedAutoPermissionRequiredMixin
 from justforfam.house.models import House, Room
+from justforfam.posts.forms import PostForm
 from justforfam.posts.models import Post
 
 
@@ -18,6 +20,26 @@ class PostsListView(ExtendedAutoPermissionRequiredMixin, ListView):
         house = get_object_or_404(House, name=unquote(self.kwargs['house_name']), family__in=[self.request.user])
         room = get_object_or_404(Room, name=unquote(self.kwargs['room_name']), house=house)
         return Post.objects.filter(room=room)
+
+
+class PostCreateView(ExtendedAutoPermissionRequiredMixin, CreateView):
+    model = Post
+    form_class = PostForm
+
+    def form_valid(self, form):
+        house = get_object_or_404(House, name=unquote(self.kwargs['house_name']), family__in=[self.request.user])
+        form.instance.room = get_object_or_404(Room, name=unquote(self.kwargs['room_name']), house=house)
+        form.instance.author = self.request.user
+        form.save()
+        return super(PostCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('posts:posts_list',
+                       kwargs={
+                           'username': self.request.user.username,
+                           'house_name': self.kwargs['house_name'],
+                           'room_name': self.kwargs['room_name']
+                       })
 
 
 class PostView(ExtendedAutoPermissionRequiredMixin, DetailView):
