@@ -1,0 +1,31 @@
+{% load i18n %}
+
+<div>
+  <h2>{% translate list_title %}</h2>
+  <ul>
+    {% for house in houses_list %}
+      <!-- Mini Posts -->
+      <section>
+        <div class="mini-posts">
+
+          <!-- Mini Post -->
+          <article class="mini-post">
+            <header>
+              <h3><a href="{% url 'house:rooms_list' user.username house.name %}">{{ house.name }}</a></h3>
+              <time class="published">Number of Rooms: {{ house.rooms.count }}</time>
+            </header>
+            <a href="{% url 'house:rooms_list' user.username house.name %}" class="image">
+            {% if house.cover_image %}
+              <img src="{{ house.cover_image.url }}" alt="" />
+            {% else %}
+              <img src="https://picsum.photos/400/300" alt="" />
+            {% endif %}
+            </a>
+          </article>
+
+        </div>
+      </section>
+    {% endfor %}
+  </ul>
+  <hr>
+</div>

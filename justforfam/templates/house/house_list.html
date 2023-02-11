@@ -4,10 +4,19 @@
 {% load static %}
 
 {% block content %}
-    <h2>Houses</h2>
-    <ul>
-        {% for house in houses_list %}
-            <li><a href="{% url 'house:rooms_list' user.username house.name %}">{{ house.name }}</a></li>
-        {% endfor %}
-    </ul>
+  {{ block.super }}
+
+  {% if houses_list.family.count > 0 %}
+    {% include "house/partials/house_list_partial.html" with list_title="My Family Homes" houses_list=houses_list.family %}
+  {% endif %}
+
+  {% if houses_list.guest.count > 0 %}
+    {% include "house/partials/house_list_partial.html" with list_title="My Friends' Homes" houses_list=houses_list.guest %}
+  {% endif %}
+
+  <h2>{% translate "Add a Home" %}</h2>
+  <button class="primaryAction btn btn-primary" type="button">{% translate "Join an Existing Home" %}</button>
+  <b>~ OR ~</b>
+  <button class="primaryAction btn btn-primary" type="button">{% translate "Create a New Home" %}</button>
+
 {% endblock %}

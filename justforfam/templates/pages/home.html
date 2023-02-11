@@ -3,10 +3,6 @@
 {% load i18n %}
 {% load static %}
 
-{% block css %}
-  {{ block.super }}
-{% endblock %}
-
 {% block content %}
 {#  <body class="is-preload">#}
 {#		<!-- Wrapper -->#}
@@ -16,11 +12,31 @@
 {#					<header id="header">#}
 {#						<div class="inner">#}
 {##}
-{#							<!-- Logo -->#}
-{#								<a href="index.html" class="logo">#}
-{#									<span class="symbol"><img src="{% static 'images/logo.jpeg' %}" alt=""/>#}
-{#                  </span><span class="title">Just For Fam</span>#}
-{#								</a>#}
+  <section id="intro">
+
+    <header>
+      <h2><a href="#" class="logo"><img src="{% static 'images/logo-no-bg.png' %}" alt=""></a>Just For Fam</h2>
+      <h1>Welcome to the family blog!</h1>
+      <p>
+        Welcome, dear family members!
+        <br><br>
+        We are so glad you have found your way to our family blog. This is a place where we can share all sorts of fun, engaging, and family-friendly content that we can enjoy together.
+        <br><br>
+        On our blog, you will find a wide variety of things to keep you entertained and informed. We have recipes for tasty meals, craft ideas to keep your creative juices flowing, parenting tips for those moments when you need a little guidance, and educational activities to keep your minds sharp. Plus, all of our writers are real parents who know firsthand the ups and downs of raising a family.
+        <br><br>
+        Stay connected with us to stay up-to-date on the latest family trends, find new ways to bond with your loved ones, and get inspiration for creating lasting memories together. We can't wait to share this journey with you!
+      </p>
+    </header>
+  </section>
+
+  <!-- Main -->
+{#					<div id="main">#}
+{#						<div class="inner">#}
+{#							<header>#}
+{#								#}
+{#							</header>#}
+
+
 {##}
 {#							<!-- Nav -->#}
 {#								<nav>#}
@@ -44,21 +60,7 @@
 {#						</ul>#}
 {#					</nav>#}
 {##}
-{#				<!-- Main -->#}
-{#					<div id="main">#}
-{#						<div class="inner">#}
-{#							<header>#}
-{#								<h1>Welcome to the family blog!</h1>#}
-{#								<p>#}
-{#                  Welcome, dear family members!#}
-{#                  <br><br>#}
-{#                  We are so glad you have found your way to our family blog. This is a place where we can share all sorts of fun, engaging, and family-friendly content that we can enjoy together.#}
-{#                  <br><br>#}
-{#                  On our blog, you will find a wide variety of things to keep you entertained and informed. We have recipes for tasty meals, craft ideas to keep your creative juices flowing, parenting tips for those moments when you need a little guidance, and educational activities to keep your minds sharp. Plus, all of our writers are real parents who know firsthand the ups and downs of raising a family.#}
-{#                  <br><br>#}
-{#                  Stay connected with us to stay up-to-date on the latest family trends, find new ways to bond with your loved ones, and get inspiration for creating lasting memories together. We can't wait to share this journey with you!#}
-{#                </p>#}
-{#							</header>#}
+
 {#							<section class="tiles">#}
 {#								<article class="style1">#}
 {#									<span class="image">#}

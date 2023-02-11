@@ -1,7 +1,8 @@
 from urllib.parse import unquote
 
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView
 
 from justforfam.core.utils.permissions import ExtendedAutoPermissionRequiredMixin
 from justforfam.house.models import Room, House
@@ -13,7 +14,10 @@ class HouseListView(ExtendedAutoPermissionRequiredMixin, ListView):
     context_object_name = 'houses_list'
 
     def get_queryset(self):
-        return House.objects.filter(family__in=[self.request.user])
+        return {
+            'family': House.objects.filter(family__in=[self.request.user]),
+            'guest': House.objects.filter(family_guests__in=[self.request.user])
+        }
 
 
 class RoomListView(ExtendedAutoPermissionRequiredMixin, ListView):

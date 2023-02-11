@@ -1,4 +1,7 @@
 {% load static %}
+{% load avatar_tags %}
+
+{% url 'posts:post_view' user.username post.room.house.name post.room.name post.title post.pk|stringformat:"s" as post_link%}
 
 <div id="wrapper">
   <div id="main">
@@ -6,15 +9,17 @@
     <article class="post">
       <header>
         <div class="title">
-          <h2><a href="single.html">{{ post.title }}</a></h2>
+          <h2><a href="{{ post_link }}">{{ post.title }}</a></h2>
           <p>{{ post.subtitle }}</p>
         </div>
         <div class="meta">
           <time class="published" datetime="{{ post.created | date:'Y-m-d' }}">{{ post.created | date:'F D jS, Y' }}</time>
-          <a href="#" class="author"><span class="name">Author: {{ post.author.username }}</span><img src="{% static 'images/pic01.jpg' %}" alt=""/></a>
+          <a href="#" class="author"><span class="name">Author: {{ post.author.username }}</span>
+            {% avatar user 40 40 class="img-circle img-responsive" id="user_avatar" %}
+          </a>
         </div>
       </header>
-      <a href="{% url 'posts:post_view' user.username post.room.house.name post.room.name post.title post.pk|stringformat:"s" %}" class="image"><img src="{{ post.banner_image.url }}" width="1100" height="300" alt=""/></a>
+      <a href="{{ post_link }}" class="image"><img src="{{ post.banner_image.url }}" width="1100" height="300" alt=""/></a>
       <p>
         {% if list_page %}
           {{ post.content| truncatewords_html:150 | safe }}
@@ -25,7 +30,7 @@
       <footer>
         {% if list_page %}
         <ul class="actions">
-          <li><a href="{% url 'posts:post_view' user.username post.room.house.name post.room.name post.title post.pk|stringformat:"s" %}" class="button large">Continue Reading</a></li>
+          <li><a href="{{ post_link }}" class="button large">Continue Reading</a></li>
         </ul>
         {% endif %}
         <ul class="stats">

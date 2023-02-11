@@ -3,13 +3,7 @@
 {% load i18n %}
 {% load static %}
 
-
-{% block css %}
-  {{ block.super }}
-  <link href="{% static 'css/future_imperfect/future_imperfect.css' %}" rel="stylesheet">
-  <link href="{% static 'css/shared/fontawesome-all.min.css' %}" rel="stylesheet">
-{% endblock %}
-
 {% block content %}
+  {{ block.super }}
 	{% include "posts/partials/post_text_card.html" with post=post %}
 {% endblock %}
