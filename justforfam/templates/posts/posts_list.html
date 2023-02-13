@@ -8,8 +8,4 @@
   {% for post in posts_list %}
       {% include "posts/partials/post_text_card.html" with post=post list_page=True %}
   {% endfor %}
-
-  <h2>{% translate "New Post" %}</h2>
-  <a href="{% url 'posts:posts_create' user.username view.kwargs.house_name view.kwargs.room_name %}" class="button large">{% translate 'Write a New Post' %}</a>
-
 {% endblock %}

@@ -1,13 +1,37 @@
 {% load i18n %}
-<h2><b>
-  {% if view.kwargs.house_name %}
-    <a href="{% url 'house:rooms_list' user.username view.kwargs.house_name %}">{{ view.kwargs.house_name }}</a>
-    {% if view.kwargs.room_name %}
-      > <a href="{% url 'posts:posts_list' user.username request.user.house.name view.kwargs.room_name %}">{{ view.kwargs.room_name }}</a>
-      {% if view.kwargs.post_title %}
-        > {{ view.kwargs.post_title }}
-      {% endif %}
+
+{% if view.kwargs.house_name %}
+  <div style="float: left;">
+  {% if view.kwargs.room_name %}
+    <div>
+      <h1>
+        <a href="{% url 'house:rooms_list' user.username view.kwargs.house_name %}">< Back to {{ view.kwargs.house_name }}</a>
+      </h1>
+    </div>
     {% endif %}
-    </b></h2>
-    <hr>
-  {% endif %}
+    {% if view.kwargs.post_title %}
+      <div>
+        <h1>
+          <a href="{% url 'posts:posts_list' user.username request.user.house.name view.kwargs.room_name %}">< Back to {{ view.kwargs.room_name }}</a>
+        </h1>
+      </div>
+    {% endif %}
+  </div>
+  <div class="navigation-title">
+    {% if view.kwargs.post_title %}
+      <h2>{% translate "Reading:" %} {{ view.kwargs.post_title }}</h2>
+    {% elif view.kwargs.house_name and view.kwargs.room_name %}
+      <h2>{% translate "Posts in" %} {{ view.kwargs.room_name }}</h2>
+      {% elif view.kwargs.house_name %}
+      <h2>{% translate "Rooms in" %} {{ view.kwargs.house_name }}</h2>
+    {% endif %}
+  </div>
+  {% if view.kwargs.post_title %}
+    <br>
+    {% endif %}
+  <br>
+  <hr>
+{% endif %}
+
+{#<h2>{% translate "New Post" %}</h2>#}
+{#<a href="{% url 'posts:posts_create' user.username view.kwargs.house_name view.kwargs.room_name %}" class="button large">{% translate 'Write a New Post' %}</a>#}

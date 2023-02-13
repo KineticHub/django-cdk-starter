@@ -2,13 +2,13 @@
 {% load i18n %}
 
 <div>
-{#  <h2>{% translate list_title %}</h2>#}
+  {#  <h2>{% translate list_title %}</h2>#}
   <ul>
-  <!-- Mini Posts -->
-      <section>
-    {% for room in rooms_list %}
+    <!-- Mini Posts -->
+    <section>
+      {% for room in rooms_list %}
 
-      {% url 'posts:posts_list' user.username room.house.name room.name as room_link %}
+        {% url 'posts:posts_list' user.username room.house.name room.name as room_link %}
 
 
         <div class="mini-posts">
@@ -21,18 +21,17 @@
             </header>
 
             <a href="{{ room_link }}" class="image">
-            {% if room.cover_image %}
-              <img src="{{ room.cover_image.url }}" alt="" />
-            {% else %}
-              <img src="{% static room.get_default_cover_image_static_file_path %}" alt="" />
-            {% endif %}
+              {% if room.cover_image %}
+                <img src="{{ room.cover_image.url }}" alt="" />
+              {% else %}
+                <img src="{% static room.get_default_cover_image_static_file_path %}" alt="" />
+              {% endif %}
             </a>
           </article>
 
         </div>
 
-    {% endfor %}
-      </section>
+      {% endfor %}
+    </section>
   </ul>
-  <hr>
 </div>

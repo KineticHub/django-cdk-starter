@@ -92,3 +92,14 @@
     border: 0px;
   }
 }
+
+/*------------------*/
+
+div.navigation-title {
+  float: right;
+  font-size: x-large;
+}
+
+#main hr {
+  width: 100%;
+}
