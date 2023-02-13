@@ -14,13 +14,9 @@ class House(AbstractBaseModel):
         null=False,
         blank=False
     )
-    family = models.ManyToManyField(
+    neighbours = models.ManyToManyField(
         User,
-        related_name='family_houses'
-    )
-    family_guests = models.ManyToManyField(
-        User,
-        related_name='guest_houses',
+        related_name='neighbours',
         null=True,
         blank=True
     )
@@ -42,7 +38,25 @@ class House(AbstractBaseModel):
         return self.name
 
 
-class RoomBase(AbstractBaseModel):
+class Room(AbstractBaseModel):
+
+    class RoomTypeOptions(models.TextChoices):
+        LIVING_ROOM = "living-room", "Living Room"
+        FAMILY_DEN = "family-den", "Family Den"
+        BEDROOM = "bedroom", "Bedroom"
+
+    class RoomPrivacyOptions(models.TextChoices):
+        PRIVATE = "private", "Private"
+        PERSONAL_GUESTS = "personal-guests", "Personal Guests"
+        FAMILY = "family", "Family"
+        FAMILY_GUESTS = "family-guests", "Family Guests"
+        PUBLIC = "public", "Public"
+
+    house = models.ForeignKey(
+        House,
+        related_name='rooms',
+        on_delete=CASCADE
+    )
     name = models.CharField(
         max_length=255,
         null=False,
@@ -57,34 +71,21 @@ class RoomBase(AbstractBaseModel):
         null=True,
         blank=True
     )
-
-    class Meta:
-        abstract = True
-
-    def __str__(self):
-        return self.name
-
-
-class Room(RoomBase):
-
-    class RoomPrivacyOptions(models.TextChoices):
-        FAMILY = "family", "Family"
-        FAMILY_GUESTS = "family-guests", "Family Guests"
-        PUBLIC = "public", "Public"
-
-    house = models.ForeignKey(
-        House,
-        related_name='rooms',
-        on_delete=CASCADE
-    )
     privacy = models.CharField(
         max_length=255,
         choices=RoomPrivacyOptions.choices,
         null=False,
         blank=False
     )
+    type = models.CharField(
+        max_length=255,
+        choices=RoomTypeOptions.choices,
+        default=RoomTypeOptions.LIVING_ROOM,
+        null=False,
+        blank=False
+    )
 
-    class Meta(RoomBase.Meta):
+    class Meta:
         rules_permissions = {
             "add": rules.can_add_room,
             "change": rules.can_edit_room,
@@ -92,21 +93,14 @@ class Room(RoomBase):
             "view": rules.can_view_room,
         }
 
+    def __str__(self):
+        return self.name
 
-class PrivateRoom(RoomBase):
-
-    class PrivateRoomPrivacyOptions(models.TextChoices):
-        PRIVATE = "private", "Private"
-        PERSONAL_GUESTS = "personal-guests", "Personal Guests"
-
-    house = models.ForeignKey(
-        House,
-        related_name='private_rooms',
-        on_delete=CASCADE
-    )
-    privacy = models.CharField(
-        max_length=255,
-        choices=PrivateRoomPrivacyOptions.choices,
-        null=False,
-        blank=False
-    )
+    @property
+    def get_default_cover_image_static_file_path(self):
+        if self.type == Room.RoomTypeOptions.LIVING_ROOM:
+            return 'images/rooms/living-room-2-crop.png'
+        if self.type == Room.RoomTypeOptions.FAMILY_DEN:
+            return 'images/rooms/home-office-2.png'
+        if self.type == Room.RoomTypeOptions.BEDROOM:
+            return 'images/rooms/bedroom-2.png'

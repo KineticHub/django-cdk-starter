@@ -16,7 +16,7 @@ def is_public_room(post):
 @rules.predicate
 def is_family_guest_privacy_match(user, post):
     Room = apps.get_model(app_label='house', model_name='Room')
-    return post.room.house.family_guests.filter(user=user).exists() \
+    return post.room.house.neighbours.filter(user=user).exists() \
         and post.room.privacy == Room.RoomPrivacyOptions.FAMILY_GUESTS
 
 

@@ -6,6 +6,7 @@ from django.views.generic import ListView, CreateView
 
 from justforfam.core.utils.permissions import ExtendedAutoPermissionRequiredMixin
 from justforfam.house.models import Room, House
+from justforfam.house.utils.room_utils import RoomDefinitions
 
 
 class HouseListView(ExtendedAutoPermissionRequiredMixin, ListView):
@@ -15,8 +16,7 @@ class HouseListView(ExtendedAutoPermissionRequiredMixin, ListView):
 
     def get_queryset(self):
         return {
-            'family': House.objects.filter(family__in=[self.request.user]),
-            'guest': House.objects.filter(family_guests__in=[self.request.user])
+            'neighbors': House.objects.filter(neighbours__in=[self.request.user])
         }
 
 
@@ -26,11 +26,34 @@ class HouseCreateView(ExtendedAutoPermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.save()
+
+        # add the current user to the house family
         form.instance.family.add(self.request.user)
+
+        # create the default rooms in the house
+        living_room = Room.objects.create(
+            house=form.instance,
+            **RoomDefinitions.get_room_type_definition(Room.RoomTypeOptions.LIVING_ROOM)
+        )
+        form.instance.rooms.add(living_room)
+        family_den = Room.objects.create(
+            house=form.instance,
+            **RoomDefinitions.get_room_type_definition(Room.RoomTypeOptions.FAMILY_DEN)
+        )
+        form.instance.rooms.add(family_den)
+        bedroom = Room.objects.create(
+            house=form.instance,
+            **RoomDefinitions.get_room_type_definition(Room.RoomTypeOptions.BEDROOM)
+        )
+        form.instance.rooms.add(bedroom)
+
         return super(HouseCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('house:houses_list', kwargs={'username': self.request.user.username})
+        return reverse('house:rooms_list', kwargs={
+            'username': self.request.user.username,
+            'house_name': self.request.user.house.name
+        })
 
 
 class RoomListView(ExtendedAutoPermissionRequiredMixin, ListView):
@@ -48,7 +71,8 @@ class RoomCreateView(ExtendedAutoPermissionRequiredMixin, CreateView):
     fields = ['name', 'cover_image', 'description', 'privacy']
 
     def form_valid(self, form):
-        form.instance.house = get_object_or_404(House, name=unquote(self.kwargs['house_name']), family__in=[self.request.user])
+        form.instance.house = get_object_or_404(House, name=unquote(self.kwargs['house_name']),
+                                                family__in=[self.request.user])
         form.save()
         return super(RoomCreateView, self).form_valid(form)
 

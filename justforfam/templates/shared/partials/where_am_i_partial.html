@@ -1,17 +1,12 @@
 {% load i18n %}
 <h2><b>
   {% if view.kwargs.house_name %}
-    <a href="{% url 'house:houses_list' request.user.username %}">My Homes</a>
-    > <a href="{% url 'house:rooms_list' user.username view.kwargs.house_name %}">{{ view.kwargs.house_name }}</a>
+    <a href="{% url 'house:rooms_list' user.username view.kwargs.house_name %}">{{ view.kwargs.house_name }}</a>
     {% if view.kwargs.room_name %}
-      > <a href="{% url 'posts:posts_list' user.username view.kwargs.house_name view.kwargs.room_name %}">{{ view.kwargs.room_name }}</a>
+      > <a href="{% url 'posts:posts_list' user.username request.user.house.name view.kwargs.room_name %}">{{ view.kwargs.room_name }}</a>
       {% if view.kwargs.post_title %}
         > {{ view.kwargs.post_title }}
-        {#      {% else %}#}
-        {#        > Posts#}
       {% endif %}
-      {#    {% else %}#}
-      {#      > Rooms#}
     {% endif %}
     </b></h2>
     <hr>

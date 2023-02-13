@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
-from django.db.models import CharField
+from django.db import models
+from django.db.models import CharField, SET_NULL
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -14,9 +15,20 @@ class User(AbstractUser, AbstractBaseModel):
     """
 
     #: First and last name do not cover name patterns around the globe
-    name = CharField(_("Name of User"), blank=True, max_length=255)
     first_name = None  # type: ignore
     last_name = None  # type: ignore
+    name = CharField(
+        _("Name of User"),
+        blank=True,
+        max_length=255
+    )
+    house = models.ForeignKey(
+        'house.House',
+        related_name='family',
+        on_delete=SET_NULL,
+        blank=True,
+        null=True
+    )
 
     def get_absolute_url(self):
         """Get url for user's detail view.

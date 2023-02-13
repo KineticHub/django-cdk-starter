@@ -6,17 +6,15 @@
 {% block content %}
   {{ block.super }}
 
-  {% if houses_list.family.count > 0 %}
-    {% include "house/partials/house_list_partial.html" with list_title="My Family Homes" houses_list=houses_list.family %}
+  {% if request.user.house %}
+    {% if houses_list.neighbors.count > 0 %}
+      {% include "house/partials/house_list_partial.html" with list_title="My Neighbors" houses_list=houses_list.neighbors %}
+    {% endif %}
+  {% else %}
+    <h2>{% translate "Your Home" %}</h2>
+    <button class="primaryAction btn btn-primary" type="button">{% translate "Join an Existing Home" %}</button>
+    <b>~ OR ~</b>
+    <a href="{% url 'house:houses_create' user.username %}" class="button large">{% translate 'Create a New Home' %}</a>
   {% endif %}
-
-  {% if houses_list.guest.count > 0 %}
-    {% include "house/partials/house_list_partial.html" with list_title="My Friends' Homes" houses_list=houses_list.guest %}
-  {% endif %}
-
-  <h2>{% translate "Add a Home" %}</h2>
-  <button class="primaryAction btn btn-primary" type="button">{% translate "Join an Existing Home" %}</button>
-  <b>~ OR ~</b>
-  <a href="{% url 'house:houses_create' user.username %}" class="button large">{% translate 'Create a New Home' %}</a>
 
 {% endblock %}

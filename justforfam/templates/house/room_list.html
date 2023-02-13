@@ -8,7 +8,4 @@
   {% if rooms_list.count > 0 %}
     {% include "house/partials/room_list_partial.html" with list_title="Rooms" rooms_list=rooms_list %}
   {% endif %}
-
-  <h2>{% translate "Add a Room" %}</h2>
-  <a href="{% url 'house:rooms_create' user.username view.kwargs.house_name %}" class="button large">{% translate 'Create a New Room' %}</a>
 {% endblock %}

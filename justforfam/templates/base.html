@@ -64,7 +64,11 @@
           <nav class="links">
             <ul>
               {% if request.user.is_authenticated %}
-                <li><a href="{% url 'house:houses_list' request.user.username %}">{% translate "My Homes" %}</a></li>
+                {% if request.user.house.name %}
+                  <li><a href="{% url 'house:rooms_list' request.user.username request.user.house.name %}">{% translate "My Home" %}</a></li>
+                {% else %}
+                  <li><a href="{% url 'house:houses_list' request.user.username %}">{% translate "My Home" %}</a></li>
+                {% endif %}
                 {# URL provided by django-allauth/account/urls.py #}
                 <li><a href="{% url 'users:detail' request.user.username  %}">{% translate "Profile" %}</a></li>
                 {# URL provided by django-allauth/account/urls.py #}

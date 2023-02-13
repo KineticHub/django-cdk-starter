@@ -2703,6 +2703,7 @@ input, select, textarea {
 				-ms-transition: -ms-transform 0.2s ease-out;
 				transition: transform 0.2s ease-out;
 				width: 100%;
+        height: 200px;
 			}
 
 			.mini-post .image:hover img {
@@ -2743,7 +2744,7 @@ input, select, textarea {
 			}
 
       div.mini-posts {
-        display: flex;
+        display: block;
       }
 
 	.mini-posts {
@@ -2751,6 +2752,10 @@ input, select, textarea {
 	}
 
 		@media screen and (max-width: 1280px) {
+
+      div.mini-posts {
+        display: flex;
+      }
 
 			.mini-posts {
 				display: -moz-flex;
@@ -2761,7 +2766,7 @@ input, select, textarea {
 				-webkit-flex-wrap: wrap;
 				-ms-flex-wrap: wrap;
 				flex-wrap: wrap;
-				width: calc(100% + 2em);
+				width: 55em;
 			}
 
 				.mini-posts > * {
@@ -2776,6 +2781,10 @@ input, select, textarea {
 		}
 
 		@media screen and (max-width: 480px) {
+
+      div.mini-posts {
+        display: flex;
+      }
 
 			.mini-posts {
 				display: block;
@@ -2795,7 +2804,7 @@ input, select, textarea {
 		padding: 3em 3em 1em 3em ;
 		background: #ffffff;
 		border: solid 1px rgba(160, 160, 160, 0.3);
-		margin: 0 0 3em 0;
+		margin: 0 0 0em 0;
 		position: relative;
 	}
 
