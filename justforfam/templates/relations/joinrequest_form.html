@@ -5,5 +5,5 @@
   {% translate "Home Id" %}
 {% endblock %}
 {% block form_action %}
-  {% url 'relations:join_family_request' user.username %}
+  {% url request.resolver_match.app_name|add:':'|add:request.resolver_match.url_name user.username %}
 {% endblock %}

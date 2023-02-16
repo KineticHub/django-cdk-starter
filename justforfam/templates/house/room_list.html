@@ -7,5 +7,6 @@
   {{ block.super }}
   {% if rooms_list.count > 0 %}
     {% include "house/partials/room_list_partial.html" with list_title="Rooms" rooms_list=rooms_list %}
+  {% else %}
   {% endif %}
 {% endblock %}

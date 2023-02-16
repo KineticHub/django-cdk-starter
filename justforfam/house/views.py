@@ -2,11 +2,19 @@ from urllib.parse import unquote
 
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 
 from justforfam.core.utils.permissions import ExtendedAutoPermissionRequiredMixin
 from justforfam.house.models import Room, House
 from justforfam.house.utils.room_utils import RoomDefinitions
+
+
+class HouseDetailView(ExtendedAutoPermissionRequiredMixin, DetailView):
+    model = House
+    template_name = 'house/house_detail.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user.house
 
 
 class HouseListView(ExtendedAutoPermissionRequiredMixin, ListView):
