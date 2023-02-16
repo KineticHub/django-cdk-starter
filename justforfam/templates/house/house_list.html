@@ -12,7 +12,7 @@
     {% endif %}
   {% else %}
     <h2>{% translate "Your Home" %}</h2>
-    <button class="primaryAction btn btn-primary" type="button">{% translate "Join an Existing Home" %}</button>
+    <a href="{% url 'relations:join_family_request' user.username %}" class="button large">{% translate "Join an Existing Home" %}</a>
     <b>~ OR ~</b>
     <a href="{% url 'house:houses_create' user.username %}" class="button large">{% translate 'Create a New Home' %}</a>
   {% endif %}

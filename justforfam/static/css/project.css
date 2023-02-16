@@ -103,3 +103,18 @@ div.navigation-title {
 #main hr {
   width: 100%;
 }
+
+#main .form-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.form-container .alert-danger {
+  background-color: crimson;
+  color: #ffffff;
+}
+
+.form-container .alert-danger ul {
+  list-style-type: none;
+}

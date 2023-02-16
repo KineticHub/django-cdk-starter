@@ -2,8 +2,8 @@
 {% load i18n %}
 
 {% block form_header %}
-  {% translate "Home Details" %}
+  {% translate "Home Id" %}
 {% endblock %}
 {% block form_action %}
-  {% url 'house:houses_create' user.username %}
+  {% url 'relations:join_family_request' user.username %}
 {% endblock %}

@@ -25,6 +25,8 @@ urlpatterns = [
     path('<username>/', include('justforfam.house.urls')),
     # Blog posts
     path('<username>/home/<house_name>/room/<room_name>/', include('justforfam.posts.urls')),
+    # Relations
+    path('<username>/join/', include('justforfam.relations.urls')),
     # Photo Gallery
     path('gallery/', include('justforfam.gallery.urls', namespace='gallery')),
 

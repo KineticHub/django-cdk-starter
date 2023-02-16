@@ -8,7 +8,7 @@ def is_post_author(user, post):
 
 
 @rules.predicate
-def is_public_room(post):
+def is_public_room(_, post):
     Room = apps.get_model(app_label='house', model_name='Room')
     return post.room.privacy == Room.RoomPrivacyOptions.PUBLIC
 
