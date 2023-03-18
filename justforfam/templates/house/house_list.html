@@ -6,7 +6,6 @@
 {% block content %}
   {{ block.super }}
 
-
     {% if houses_list.neighbors.count > 0 %}
       {% include "house/partials/house_list_partial.html" with list_title="My Neighbors" houses_list=houses_list.neighbors %}
     {% endif %}

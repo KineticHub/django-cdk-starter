@@ -1,9 +1,12 @@
+from django.core.exceptions import PermissionDenied
 from django.views.generic import DetailView, ListView, FormView
 from django.urls import reverse
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.templatetags.static import static
+
+from justforfam.core.utils.permissions import ExtendedAutoPermissionRequiredMixin
 from justforfam.gallery.models import Image, Album
 from justforfam.gallery.forms import ImageCreateForm
 from justforfam.gallery import settings
@@ -66,12 +69,14 @@ class ImageList(GallerySettingsMixin, ListView):
 
 class ImageCreate(GallerySettingsMixin, LoginRequiredMixin, FormView):
     """ Embedded drag and drop image upload"""
-    login_url = '/admin/login/'
+    login_url = '/accounts/login/'
     form_class = ImageCreateForm
     template_name = 'gallery/image_upload.html'
 
     def form_valid(self, form):
         """ Bulk create images based on form data """
+        if Album.objects.get(id=form.data['apk']).post.author != self.request.user:
+            raise PermissionDenied
         image_data = form.files.getlist('data')
         for data in image_data:
             image = Image.objects.create(data=data)

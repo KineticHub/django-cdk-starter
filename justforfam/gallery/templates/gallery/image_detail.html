@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block title %}
-    {% if album %}{{ album.title }} - {% endif %}{{ image.title }}
+  {{ block.super }}
+  <h2>{% if album %}{{ album.title }} - {% endif %}{{ image.title }}</h2>
 {% endblock %}
 
 {% block header %}
-
+  {{ block.super }}
     <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{% url 'gallery:image_detail' image.pk image.slug %}">
 
     <script type="text/javascript">
@@ -73,7 +74,7 @@
     </div>
 {% endblock %}
 
-{% block content %}
+{% block gallery_content %}
 
 <a href="{{ image.data.url }}">
     <img id="image_preview" src="{{ image.data_preview.url }}" alt="{{ image.title }}"/>

@@ -5,6 +5,7 @@ from tinymce import models as tinymce_models
 from justforfam.core.models.base import AbstractBaseModel
 from justforfam.core.utils.files.FileUploadTo import FileUploadTo
 from justforfam.core.utils.files.ImageFileCheck import ContentTypeRestrictedFileField
+from justforfam.gallery.models import Album
 from justforfam.house.models import Room
 from justforfam.posts import rules
 from justforfam.users.models import User
@@ -52,6 +53,14 @@ class Post(AbstractBaseModel):
         choices=PostTypeOptions.choices,
         default=PostTypeOptions.TEXT
     )
+    album = models.OneToOneField(
+        Album,
+        related_name='post',
+        on_delete=CASCADE,
+        default=None,
+        blank=True,
+        null=True
+    )
     content = tinymce_models.HTMLField()
 
     class Meta:
@@ -61,6 +70,15 @@ class Post(AbstractBaseModel):
             "delete": rules.can_delete_post,
             "view": rules.can_view_post,
         }
+
+    def save(self, **kwargs):
+        album_title = self.title + " Album"
+        if not self.album:
+            self.album = Album.objects.create(title=album_title)
+        if self.album.title != album_title:
+            self.album.title = album_title
+            self.album.save(update_fields=['title'])
+        super(Post, self).save()
 
     def __str__(self):
         return self.title

@@ -101,6 +101,6 @@ class Room(AbstractBaseModel):
         if self.type == Room.RoomTypeOptions.LIVING_ROOM:
             return 'images/rooms/living-room-2-crop.png'
         if self.type == Room.RoomTypeOptions.FAMILY_DEN:
-            return 'images/rooms/home-office-2.png'
+            return 'images/rooms/children-room-2.png'
         if self.type == Room.RoomTypeOptions.BEDROOM:
             return 'images/rooms/bedroom-2.png'

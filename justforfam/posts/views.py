@@ -3,7 +3,7 @@ from urllib.parse import unquote
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from justforfam.core.utils.permissions import ExtendedAutoPermissionRequiredMixin
 from justforfam.house.models import House, Room
@@ -42,11 +42,15 @@ class PostCreateView(ExtendedAutoPermissionRequiredMixin, CreateView):
                        })
 
 
+class PostUpdateView(ExtendedAutoPermissionRequiredMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+
+
 class PostView(ExtendedAutoPermissionRequiredMixin, DetailView):
     model = Post
     template_name = 'posts/post_viewer.html'
     context_object_name = 'post'
-
 
 # def get_name(request):
 #     # if this is a POST request we need to process the form data

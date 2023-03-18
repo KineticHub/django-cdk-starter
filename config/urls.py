@@ -4,8 +4,9 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
 from django.views import defaults as default_views
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from photologue.models import Photo
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
@@ -34,6 +35,7 @@ urlpatterns = [
     # 3rd Party
     ############
 
+    # path('photologue/photo/add/', CreateView.as_view(model=Photo, success_url='/', fields=('title', 'caption', 'image',)), name='add-photo'),
     # Photologue
     path('photologue/', include('photologue.urls', namespace='photologue')),
     # Avatar

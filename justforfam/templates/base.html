@@ -1,4 +1,4 @@
-{% load static i18n compress%}
+{% load static i18n compress %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE HTML>
 <!--
@@ -70,13 +70,14 @@
                   <li><a href="{% url 'house:house_detail' request.user.username %}">{% translate "My Home" %}</a></li>
                 {% endif %}
                 <li><a href="{% url 'house:houses_list' request.user.username %}">{% translate "My Neighbours" %}</a></li>
+                <li><a href="{% url 'relations:join_request_list' request.user.username %}">{% translate "Requests" %}</a></li>
                 {# URL provided by django-allauth/account/urls.py #}
                 <li><a href="{% url 'users:detail' request.user.username  %}">{% translate "Profile" %}</a></li>
                 {# URL provided by django-allauth/account/urls.py #}
                 <li><a href="{% url 'account_logout' %}">{% translate "Logout" %}</a></li>
               {% else %}
                 <li><a href="{% url 'home' %}">{% translate "Home" %}</a></li>
-                <li><a href="{% url 'about' %}">{% translate "About" %}</a></li>
+{#                <li><a href="{% url 'about' %}">{% translate "About" %}</a></li>#}
                 {# URL provided by django-allauth/account/urls.py #}
                 <li><a href="{% url 'account_login' %}">{% translate "Login" %}</a></li>
                 {% if ACCOUNT_ALLOW_REGISTRATION %}
@@ -86,21 +87,21 @@
               {% endif %}
             </ul>
           </nav>
-          <nav class="main">
-            <ul>
-              {% if request.user.is_authenticated %}
-              <li class="search">
-                <a class="fa-search" href="#search">{% translate "Search" %}</a>
-                <form id="search" method="get" action="#">
-                  <input type="text" name="query" placeholder="Search" />
-                </form>
-              </li>
-              {% endif %}
-              <li class="menu">
-                <a class="fa-bars" href="#menu">{% translate "Menu" %}</a>
-              </li>
-            </ul>
-          </nav>
+{#          <nav class="main">#}
+{#            <ul>#}
+{#              {% if request.user.is_authenticated %}#}
+{#              <li class="search">#}
+{#                <a class="fa-search" href="#search">{% translate "Search" %}</a>#}
+{#                <form id="search" method="get" action="#">#}
+{#                  <input type="text" name="query" placeholder="Search" />#}
+{#                </form>#}
+{#              </li>#}
+{#              {% endif %}#}
+{#              <li class="menu">#}
+{#                <a class="fa-bars" href="#menu">{% translate "Menu" %}</a>#}
+{#              </li>#}
+{#            </ul>#}
+{#          </nav>#}
         </header>
 
       <!-- Menu -->
@@ -191,18 +192,21 @@
     </div>
 
     <div id="wrapper">
+
+{#    {% block footer %}#}
     <!-- Footer -->
     <section id="footer">
           <ul class="icons">
-            <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-            <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-            <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-            <li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
-            <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+{#            <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>#}
+{#            <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>#}
+{#            <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>#}
+{#            <li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>#}
+{#            <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>#}
           </ul>
           <p class="copyright">&copy; JustForFam. Design: <a href="http://html5up.net">HTML5 UP</a>.</p>
         </section>
     </div>
+{#    {% endblock %}#}
 
     {% block modal %}{% endblock modal %}
 

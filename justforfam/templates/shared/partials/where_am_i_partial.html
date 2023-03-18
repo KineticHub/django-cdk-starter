@@ -1,36 +1,56 @@
 {% load i18n %}
 
 {% if view.kwargs.house_name %}
-  <div style="float: left;">
-  {% if view.kwargs.room_name %}
+  <div>
+    <div class="navigation-title">
+      {% if view.kwargs.post_title %}
+        <h2>{% translate "Reading:" %} {{ view.kwargs.post_title }}</h2>
+      {% elif view.kwargs.house_name and view.kwargs.room_name %}
+        <h2>{% translate "Posts in" %} {{ view.kwargs.room_name }}</h2>
+        {% elif view.kwargs.house_name %}
+        <h2>{% translate "Rooms in" %} {{ view.kwargs.house_name }}</h2>
+      {% endif %}
+    </div>
+  </div>
+  <hr>
+  <div>
+    <div style="float: left;">
+  {% if view.kwargs.room_name and not view.kwargs.post_title %}
     <div>
       <h1>
-        <a href="{% url 'house:rooms_list' user.username view.kwargs.house_name %}">< Back to {{ view.kwargs.house_name }}</a>
+        <button class="primaryAction btn btn-primary" name="action_primary" type="button" onclick="location.href='{% url 'house:rooms_list' user.username view.kwargs.house_name %}'" >{% translate 'Back to Room Selection' %}</button>
       </h1>
     </div>
     {% endif %}
     {% if view.kwargs.post_title %}
       <div>
         <h1>
-          <a href="{% url 'posts:posts_list' user.username request.user.house.name view.kwargs.room_name %}">< Back to {{ view.kwargs.room_name }}</a>
+          <button class="primaryAction btn btn-primary" name="action_primary" type="button" onclick="location.href='{% url 'posts:posts_list' user.username request.user.house.name view.kwargs.room_name %}'" >{% translate 'Back to ' %}{{ view.kwargs.room_name }}</button>
         </h1>
       </div>
     {% endif %}
   </div>
-  <div class="navigation-title">
-    {% if view.kwargs.post_title %}
-      <h2>{% translate "Reading:" %} {{ view.kwargs.post_title }}</h2>
-    {% elif view.kwargs.house_name and view.kwargs.room_name %}
-      <h2>{% translate "Posts in" %} {{ view.kwargs.room_name }}</h2>
-      {% elif view.kwargs.house_name %}
-      <h2>{% translate "Rooms in" %} {{ view.kwargs.house_name }}</h2>
-    {% endif %}
+    <div style="float: right;">
+      {% if view.kwargs.room_name and not view.kwargs.post_title %}
+      <div>
+        <h1>
+          <button class="primaryAction btn btn-primary" name="action_primary" type="button" onclick="location.href='{% url 'posts:posts_create' user.username view.kwargs.house_name view.kwargs.room_name %}'" >{% translate 'Create a New Post in ' %}{{ view.kwargs.room_name }}</button>
+        </h1>
+      </div>
+      {% endif %}
+      {% if view.kwargs.post_title and post.author == request.user %}
+      <div>
+        <h1>
+          <button class="primaryAction btn btn-primary" name="action_primary" type="button" onclick="location.href='{% url 'posts:posts_update' user.username view.kwargs.house_name view.kwargs.room_name post.title post.pk %}'" >{% translate 'Edit This Post' %}</button>
+        </h1>
+      </div>
+      {% endif %}
+    </div>
   </div>
   {% if view.kwargs.post_title %}
     <br>
     {% endif %}
   <br>
-  <hr>
 {% endif %}
 
 {#<h2>{% translate "New Post" %}</h2>#}

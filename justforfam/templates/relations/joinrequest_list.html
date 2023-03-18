@@ -1,0 +1,119 @@
+{% extends "relations/base.html" %}
+{% load i18n %}
+
+{% block css %}
+  {{ block.super }}
+  <style>
+    h2 {
+      padding: 1em 1em;
+      background-color: #3498db;
+      margin: 1em 0;
+      color: #ecf0f1;
+    }
+    .card {
+      width: 18rem;
+      border: solid 1px black;
+      padding: 1em;
+      margin: 1em;
+      float: left;
+      background-color: aliceblue;
+    }
+    p {
+      margin: 0;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+  <h2>Outgoing Requests</h2>
+  <br>
+  <h3>{% translate "Your Request to Join a House" %}</h3>
+  <p>
+    You have requested to join a new home. All posts will be moved to the new home if the join request is accepted.
+  </p>
+  <div style="display: block;">
+  {% for outgoing_request in requests_list.outgoing.family %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">
+          {% translate "Request to join: " %}
+          <br>
+          {{ outgoing_request.house }}
+        </h5>
+        <p class="card-text">
+          Awaiting response from a family member.
+        </p>
+{#        <a href="#" class="btn btn-primary">Go somewhere</a>#}
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  <br style="clear: both;"><br>
+  <h3>{% translate "Your Request to be a Neighbour" %}</h3>
+  <p>
+    These requests will allow you to see posts in your neighbours' living room.
+  </p>
+  {% for outgoing_request in requests_list.outgoing.neighbour %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">
+          {% translate "Request to join: " %}
+          <br>
+          {{ outgoing_request.house }}
+        </h5>
+        <p class="card-text">
+          Awaiting response from a family member.
+        </p>
+{#        <a href="#" class="btn btn-primary">Go somewhere</a>#}
+      </div>
+    </div>
+  {% endfor %}
+  <br style="clear: both">
+  <h2>Incoming Requests</h2>
+  <br>
+  <h3>{% translate "Requests to be Your Family Member" %}</h3>
+  <p>
+    These members would like to join your family home.
+    They will be able to see posts in the living room and family den.
+  </p>
+  {% for incoming_request in requests_list.incoming.family %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">
+          {% translate "Requester Username: " %}
+          <br>
+          {{ incoming_request.requester.username }}
+        </h5>
+        <p class="card-text">
+          Would you like to approve this request?
+        </p>
+        <br>
+        <a href="{% url 'relations:join_request_list' user.username %}?approvalId={{ incoming_request.id }}&approvalDecision=denied" class="btn btn-primary">Deny</a>
+        <a href="{% url 'relations:join_request_list' user.username %}?approvalId={{ incoming_request.id }}&approvalDecision=approved" class="btn btn-primary" style="float:right;">Approve</a>
+      </div>
+    </div>
+  {% endfor %}
+  <br style="clear: both"><br>
+  <h3>{% translate "Requests to be a Your Neighbour" %}</h3>
+  <p>
+    These neighbours would like to be able to see posts in the living room.
+  </p>
+  {% for incoming_request in requests_list.incoming.neighbour %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">
+          {% translate "Requester Username: " %}
+          <br>
+          {{ incoming_request.requester.username }}
+        </h5>
+        <p class="card-text">
+          Would you like to approve this request?
+        </p>
+        <br>
+        <a href="{% url 'relations:join_request_list' user.username %}?approvalId={{ incoming_request.id }}&approvalDecision=denied" class="btn btn-primary">Deny</a>
+        <a href="{% url 'relations:join_request_list' user.username %}?approvalId={{ incoming_request.id }}&approvalDecision=approved" class="btn btn-primary" style="float:right;">Approve</a>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

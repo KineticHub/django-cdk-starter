@@ -6,8 +6,13 @@
 {% load comments_xtd %}
 
 {% block css %}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   {{ block.super }}
+  <style>
+    .col-md-10 {width: 100%;}
+    textarea.form-control {width: 100%;}
+    h3 {margin: 1em 0 1em 0;}
+    #wrapper {padding: 1em 3em 1em 3em;}
+  </style>
 {% endblock %}
 
 {% block javascript %}
@@ -18,8 +23,10 @@
 
 {% block content %}
   {{ block.super }}
-  {% url 'posts:posts_list' user.username post.room.house.name post.room.name  as posts_list_link%}
+  {% url 'posts:posts_list' user.username post.room.house.name post.room.name  as posts_list_link %}
 	{% include "posts/partials/post_text_card.html" with post=post %}
+
+  {% include "gallery/album_detail_mixin.html" with album=post.album images=post.album.images.all %}
 
  <div id="wrapper">
   <div id="main">
@@ -27,8 +34,6 @@
     <article class="post">
     {% get_comment_count for post as comment_count %}
     <div class="py-4 text-center">
-      <a href="{{ posts_list_link }}">Back to the post list</a>
-      &nbsp;&sdot;&nbsp;
       {{ comment_count }} comment{{ comment_count|pluralize }}
       ha{{ comment_count|pluralize:"s,ve"}} been posted.
     </div>

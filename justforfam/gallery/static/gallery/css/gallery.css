@@ -78,6 +78,11 @@
     overflow-y: hidden;
     white-space: nowrap;
 }
+
+#album_preview::-webkit-scrollbar {
+  display: none;
+}
+
 #album_preview img.image {
     height: 15vh;
 

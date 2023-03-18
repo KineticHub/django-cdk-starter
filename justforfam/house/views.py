@@ -71,7 +71,7 @@ class RoomListView(ExtendedAutoPermissionRequiredMixin, ListView):
 
     def get_queryset(self):
         house = get_object_or_404(House, name=unquote(self.kwargs['house_name']), family__in=[self.request.user])
-        return Room.objects.filter(house=house)
+        return Room.objects.filter(house=house).exclude(type=Room.RoomTypeOptions.BEDROOM)
 
 
 class RoomCreateView(ExtendedAutoPermissionRequiredMixin, CreateView):

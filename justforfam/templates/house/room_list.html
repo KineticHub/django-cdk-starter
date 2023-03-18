@@ -9,4 +9,7 @@
     {% include "house/partials/room_list_partial.html" with list_title="Rooms" rooms_list=rooms_list %}
   {% else %}
   {% endif %}
+
+  <br style="clear: both"><br><br><br><br>
+  {% include "relations/partials/people_list_partial.html" %}
 {% endblock %}

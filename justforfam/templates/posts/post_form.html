@@ -1,9 +1,15 @@
 {% extends "forms.html" %}
+{% load static %}
 {% load i18n %}
 
 {% block form_header %}
   {% translate "Post Details" %}
 {% endblock %}
+
 {% block form_action %}
+  {% if view.kwargs.pk %}
+  {% url 'posts:posts_update' user.username view.kwargs.house_name view.kwargs.room_name view.kwargs.post_title view.kwargs.pk %}
+  {% else %}
   {% url 'posts:posts_create' user.username view.kwargs.house_name view.kwargs.room_name %}
+  {% endif %}
 {% endblock %}
