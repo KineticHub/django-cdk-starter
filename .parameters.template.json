@@ -1,0 +1,5 @@
+{
+  "/Github/Connection": "arn:aws:codestar-connections:us-east-1:111111111111:connection/1a1a1a1a-1a1a-1a1a-1a1a-1a1a1a1a1a1a",
+  "/DjangoAppStaging/CertificateArn": "arn:aws:acm:us-east-1:111111111111:certificate/1a1a1a1a-1a1a-1a1a-1a1a-1a1a1a1a1a1a",
+  "/DjangoAppProduction/CertificateArn": "arn:aws:acm:us-east-1:111111111111:certificate/1a1a1a1a-1a1a-1a1a-1a1a-1a1a1a1a1a1a"
+}

@@ -1,9 +1,0 @@
-{% extends "forms.html" %}
-{% load i18n %}
-
-{% block form_header %}
-  {% translate "Home Details" %}
-{% endblock %}
-{% block form_action %}
-  {% url 'house:houses_create' user.username %}
-{% endblock %}

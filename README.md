@@ -1,81 +1,127 @@
-# JustForFam
+# Scalable Django Apps
+A sample project for auto-scalable Django apps, ready to be deployed in AWS with Docker and CDK.
 
-Behold My Awesome Project!
 
-[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
-[![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+At the root of this repository you will find a CDK (v2) project. 
 
-## Settings
+You will find the Django project and more details about how to set up the development environment is inside the `app/` directory.
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
 
-## Basic Commands
+## The Architecture Features
+* A load-balanced, highly-available, auto-scalable Django app running in Amazon ECS+Fargate (a.k.a Serverless Containers).
+* Fully-managed Queues and auto-scalable Workers using Amazon SQS and Celery Workers running in Amazon ECS+Fargate.
+* A fully-managed serverless database using Amazon Aurora Serverless.
+* Static files are stored in a private S3 bucket and served through CloudFront.
+* Private Isolated subnets and VPC Endpoints are used for improved security and performance, also allowing to remove NAT GWs.
+* Sensitive data such as API KEYs or Passwords are stored in AWS Secrets Manager. Other parameters are stored in AWS SSM Parameter Store.
 
-### Setting Up Your Users
+## DevOps
+* IaC support using CDK v2
+* CI/CD using CDK Pipelines
+* Docker support for local development with `docker-compose`.
 
--   To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
 
--   To create a **superuser account**, use this command:
+## CDK
 
-        $ python manage.py createsuperuser
+The entrypoint for the CDK project is app.py.
+Other Stacks and stages are defined in `my_django_app/`.
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+## Prerequisites to work with CDK
+- Python 3.6 or later including pip and virtualenv.
 
-### Type checks
+- Node.js 10.13.0 or later
 
-Running type checks with mypy:
+- Install the aws client v2:
+  
+  https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html
+  
+- Setup API Keys of an administrator user and set the region running:
+  
+    `aws configure`
 
-    $ mypy justforfam
+  CDK requires API KEYs with enough permissions to create and destroy resources in your AWS Account. Hence, it's recommended to create a user with `Administrator` role.
+ 
+- Install the cdk client:
+  
+    `npm install -g aws-cdk`
 
-### Test coverage
+### Working with CDK
+To work with CDK first activate the virtualenv located at `.venv` and install dependencies.
 
-To run the tests, check your test coverage, and generate an HTML coverage report:
-
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
-
-#### Running tests with pytest
-
-    $ pytest
-
-### Live reloading and Sass CSS compilation
-
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
-
-### Celery
-
-This app comes with Celery.
-
-To run a celery worker:
-
-``` bash
-cd justforfam
-celery -A config.celery_app worker -l info
+```shell
+$ source .venv/bin/activate
+(.venv) $ pip install -r requirements.txt
+(.venv) $ pip install -r requirements-dev.txt
 ```
 
-Please note: For Celery's import magic to work, it is important *where* the celery commands are run. If you are in the same folder with *manage.py*, you should be right.
+### Bootstrapping
+The usage of CDK Pipelines require an extra command, [cdk bootstrap](https://docs.aws.amazon.com/cdk/latest/guide/cli.html#cli-bootstrap), to provision resources used by CDK during the deploy.
+This command needs to be executed once per account/region combination as: `cdk bootstrap ACCOUNT-NUMBER/REGION`.
 
-### Email Server
+```shell
+(.venv) $ cdk bootstrap aws://123456789123/us-east-1
+ ⏳  Bootstrapping environment aws://123456789123/us-east-1...
+...
+ ✅  Environment aws://123456789123/us-east-1 bootstrapped
+```
 
-In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server [MailHog](https://github.com/mailhog/MailHog) with a web interface is available as docker container.
+### Deploying to AWS
+#### Set up CDK environment variables
+The required env vars for CDK can be found in .env.template
+You can either set them manually or, if using linux, use the helper script `./scripts/set_env_vars.sh`
+```shell
+$ cp .env.template .env
+# Edit .env and set your values
+$ . ./scripts/set_env_vars.sh
+```
 
-Container mailhog will start automatically when you will run all docker containers.
-Please check [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html) for more details how to start all containers.
+#### GitHub connection
+Create a CodeStar connection in [AWS CodeSuite Console](https://console.aws.amazon.com/codesuite/settings/connections) and link it to the GitHub repo so it can be used to trigger CI/CD pipelines.
 
-With MailHog running, to view messages that are sent by your application, open your browser and go to `http://127.0.0.1:8025`
+The connection arn must be stored as a parameter to be used later.
 
-### Sentry
+#### Parameters
+Parameters containing non-sensitive data are sotred in AWS System Manager Parameter Store.
+The required parameters are listed in `.parameters.template.json`.
+These parameters can be manually created from the AWS Console, or using the helper script `scripts/set_parameters.py`:
+```shell
+(.venv) $ python ./scripts/set_parameters.py .parameters.json 
+Settings parameters in AWS..
+...  # Parameters or Errors will be printed out
+Finished.
+```
 
-Sentry is an error logging aggregator service. You can sign up for a free account at <https://sentry.io/signup/?code=cookiecutter> or download and host it yourself.
-The system is set up with reasonable defaults, including 404 logging and integration with the WSGI application.
+#### Secrets
+Sensitive information is stored encrypted in AWS Secrets Manager.
 
-You must set the DSN url in production.
+The required secrets are listed in `.secrets.template.json`.
+These secrets can be manually created from the AWS Console, or using the helper script `scripts/set_parameters.py` with the `--secret` option:
+```shell
+(.venv) $ cp .secrets.template.json .secrets.json
+# Replace the placeholders with your secret values
+(.venv) $ python ./scripts/set_parameters.py --secret .secrets.json 
+Settings parameters in AWS..
+...  # Parameters or Errors will be printed out
+Finished.
+```
 
-## Deployment
+#### Deploying
+IMPORTANT: Before deploying the pipeline you need to set the secrets and parameters described above with your own values. You also need to set your own domain and SSL certificate.
 
-The following details how to deploy this application.
+Now you can deploy de CI/CD Pipeline:
+```shell
+$ cdk deploy DjangoAppPipeline
+```
+CDK will ask for confirmation before creating roles, policies and security groups. Enter 'y' for yes and the deployment process will start.You will see the deployment progress in your shell and once finished you will see the pipeline in the CodePipeline panel at the AWS Console.
 
-### Docker
+After the pipeline is deployed it will be triggered and all the stacks will be created. You can monitor the stacks creation in the CloudFormation panel at  the AWS Console.
 
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+This is the only time you need to run the deploy command. The next time you commit any changes in the infrastructure code, or the app code, the pipepile will update the infrastructure and will update the ecs services as needed.
+
+# License
+You are free to use, copy or distribute this code. Knowledge is meant to be shared :)
+
+THIS SOFTWARE COMES WITH NO WARRANTIES, USE AT YOUR OWN RISK
+
+Enjoy!
+=======

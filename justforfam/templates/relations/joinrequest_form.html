@@ -1,9 +1,0 @@
-{% extends "forms.html" %}
-{% load i18n %}
-
-{% block form_header %}
-  {% translate "Home Id" %}
-{% endblock %}
-{% block form_action %}
-  {% url request.resolver_match.app_name|add:':'|add:request.resolver_match.url_name user.username %}
-{% endblock %}
