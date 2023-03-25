@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_ssm as ssm,
     aws_secretsmanager as secretsmanager,
     aws_rds as rds,
+    aws_iam as iam
 )
 from .deployment_stage import DjangoAppPipelineStage
 
@@ -39,7 +40,7 @@ class DjangoAppPipelineStack(Stack):
                     )
                 ),
             ],
-            synth=pipelines.ShellStep(
+            synth=pipelines.CodeBuildStep(
                 "Synth",
                 input=pipelines.CodePipelineSource.connection(
                     self.repository,
@@ -51,6 +52,17 @@ class DjangoAppPipelineStack(Stack):
                     "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
                     "pip install -r requirements.txt",  # Instructs Codebuild to install required packages
                     "npx cdk synth DjangoAppPipeline",
+                ],
+                role_policy_statements=[
+                    iam.PolicyStatement(
+                        actions=['sts:AssumeRole'],
+                        resources=['*'],
+                        conditions={
+                            "StringEquals": {
+                                'iam:ResourceTag/aws-cdk:bootstrap-role': 'lookup'
+                            }
+                        },
+                    ),
                 ]
             ),
         )
@@ -65,7 +77,7 @@ class DjangoAppPipelineStack(Stack):
             # Limit scaling in staging to reduce costs
             db_min_capacity=rds.AuroraCapacityUnit.ACU_1,
             db_max_capacity=rds.AuroraCapacityUnit.ACU_1,
-            db_auto_pause_minutes=5,
+            db_auto_pause_minutes=10,
             app_task_min_scaling_capacity=1,
             app_task_max_scaling_capacity=2,
             worker_task_min_scaling_capacity=1,

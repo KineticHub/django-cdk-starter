@@ -6,5 +6,9 @@
     "us-east-1d",
     "us-east-1e",
     "us-east-1f"
-  ]
+  ],
+  "hosted-zone:account=198877829033:domainName=justforfam.com:region=us-east-1": {
+    "Id": "/hostedzone/Z0169513SG763LVWXTGP",
+    "Name": "justforfam.com."
+  }
 }
