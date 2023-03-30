@@ -93,7 +93,7 @@ class DjangoAppPipelineStage(Stage):
             "ExternalParameters",
             env=aws_env,  # AWS Account and Region
             name_prefix=f"/{self.stage_name}/",
-            database_secrets=self.database.aurora_serverless_db.secret,
+            database_secrets=self.database.postgres_db.secret,
         )
         self.django_app = DjangoAppStack(
             self,
